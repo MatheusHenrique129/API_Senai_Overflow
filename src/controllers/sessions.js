@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const auth  = require("../config/auth.json");
 const jwt = require("jsonwebtoken");
 
-
 module.exports = {
     async store(req, res) {
         const {email, password} = req.body;

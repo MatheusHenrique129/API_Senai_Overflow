@@ -1,3 +1,8 @@
 /node_modules
 
 /config/auth.json
+
+/config/firebase-key.json
+
+
+
