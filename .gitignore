@@ -4,5 +4,4 @@
 
 /config/firebase-key.json
 
-
-
+/uploads/*
