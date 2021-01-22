@@ -1,7 +1,9 @@
 const Multer = require("multer");
 
 const uploadQuestions = Multer({
-    storage: Multer.diskStorage({
+    storage: Multer.memoryStorage(
+        /*
+        {
         destination: "uploads/",
         filename: (req, file, calback) => {
             //pop pega sempre a ultima estima de um vetor
@@ -9,7 +11,8 @@ const uploadQuestions = Multer({
 
             return calback(null, filename);
         }
-    }),
+    }*/
+    ),
     fileFilter: (req, file, calback) => {
         let allowedType = ["image/png", "image/jpeg", "image/gif"];
 

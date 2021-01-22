@@ -3,6 +3,7 @@ const { celebrate, Segments, Joi } = require("celebrate");
 
 const authMidlleware = require("./middleware/authorization");
 const uploadQuestions = require("./middleware/uploadQuestions");
+const uploadImage = require("./services/firebase");
 
 const feedController = require("./controllers/feed");
 const answersController = require("./controllers/answers");
@@ -53,6 +54,7 @@ routes.put("/students/:id", studentController.update);
 //rotas de perguntas
 routes.post("/questions",
     uploadQuestions,
+    uploadImage,
     questionsValidators.create,
     questionController.store
 );
