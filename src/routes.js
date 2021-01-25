@@ -16,9 +16,7 @@ const questionsValidators = require("./validators/questions");
 const answersValidators = require("./validators/answers");
 // const { route } = require("./app");
 
-
 const routes = express.Router();
-
 
 //Rota de teste para aprender a mexer com o router
 // const upload = multer.single("arquivo");
@@ -36,7 +34,7 @@ const routes = express.Router();
 //     }
 
 //     upload(req, res, handleError);
-    
+
 // });
 
 //rotas publicas
@@ -52,17 +50,23 @@ routes.delete("/students/:id", studentController.delete);
 routes.put("/students/:id", studentController.update);
 
 //rotas de perguntas
-routes.post("/questions",
-    uploadQuestions,
-    uploadImage,
-    questionsValidators.create,
-    questionController.store
+routes.post(
+  "/questions",
+  uploadQuestions,
+  uploadImage,
+  questionsValidators.create,
+  questionController.store
 );
 routes.delete("/questions/:id", questionController.delete);
 routes.put("/questions/:id", questionController.update);
 
 //rotas de respostas
-routes.post("/questions/:id/answers", answersValidators.create, uploadQuestions, answersController.store);
+routes.post(
+  "/questions/:id/answers",
+  answersValidators.create,
+  uploadQuestions,
+  answersController.store
+);
 
 //rotas do Feed
 routes.get("/feed", feedController.index);

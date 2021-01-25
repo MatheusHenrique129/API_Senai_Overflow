@@ -11,9 +11,7 @@ module.exports = {
 
     const { studentId } = req;
 
-    const {firebaseUrl} = req.file? req.file: ""
-
-
+    //const { firebaseUrl } = req.file ? req.file : "";
 
     try {
       //buscar o aluno pelo ID
@@ -27,7 +25,7 @@ module.exports = {
       let question = await student.createQuestion({
         title,
         description,
-        image: firebaseUrl,
+        image: req.file.firebaseUrl,
         gist,
       });
 

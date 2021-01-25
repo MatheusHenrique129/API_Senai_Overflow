@@ -12,36 +12,36 @@ admin.initializeApp({
 const bucket = admin.storage().bucket();
 
 const uploadImage = (req, res, next) => {
-    if(!req.file) return next();
+  if (!req.file) return next();
 
-    const image = req.file;
+  const image = req.file;
 
-    const filename = Date.now() + "." + image.originalname.split(".").pop();
+  const filename = Date.now() + "." + image.originalname.split(".").pop();
 
-    const file = bucket.file(filename);
+  const file = bucket.file(filename);
 
+  const stream = file.createWriteStream({
+    metadata: {
+      contentType: image.mimetype,
+    },
+  });
 
-    const stream = file.createWriteStream({
-        metadata: {
-            contentType: image.mimetype,
-        },
-    });
+  stream.on("error", (error) => {
+    console.error(error);
 
-    stream.on("error", (e) => {
-        console.error(e);
-    });
+    res.status(500).send({ error: "Erro ao subir para o Firebase" });
+  });
 
-    stream.on("finish", async () => {
-        await file.makePublic();
+  stream.on("finish", async () => {
+    await file.makePublic();
 
-        //obter a url publica
-        req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${filename}`;
+    //obter a url publica
+    req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${filename}`;
 
-        next()
+    next();
+  });
 
-    });
-    stream.end(image.buffer);
+  stream.end(image.buffer);
 };
-
 
 module.exports = uploadImage;
