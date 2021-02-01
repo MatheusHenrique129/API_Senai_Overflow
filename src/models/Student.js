@@ -18,7 +18,6 @@ class Student extends Model {
             }
         )
     }
-
     /**
      * aqui configuramos os relacionamentos 
      */
