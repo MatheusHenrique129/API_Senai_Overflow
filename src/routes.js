@@ -10,6 +10,7 @@ const answersController = require("./controllers/answers");
 const sessionController = require("./controllers/sessions");
 const studentController = require("./controllers/students");
 const questionController = require("./controllers/questions");
+const categoriesController = require("./controllers/categories");
 
 const studentsValidators = require("./validators/students");
 const questionsValidators = require("./validators/questions");
@@ -70,5 +71,7 @@ routes.post(
 
 //rotas do Feed
 routes.get("/feed", feedController.index);
+//rotas de Categorias
+routes.get("/categories", categoriesController.index);
 
 module.exports = routes;

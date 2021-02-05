@@ -5,7 +5,7 @@ class Answer extends Model {
     super.init(
       {
         description: DataTypes.STRING,
-        student_id: DataTypes.INTEGER,
+        student_id: DataTypes.INTEGER
       },
       {
         sequelize,

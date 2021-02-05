@@ -4,6 +4,7 @@ const Student = require("../models/Student");
 module.exports = {
   index(req, res) {},
 
+  //Função que adiciona uma resposta a uma pergunta
   async store(req, res) {
     const questionId = req.params.id;
 

@@ -1,8 +1,8 @@
-const Student = require("../models/Student");
-const { update } = require("../models/Student");
-const { store } = require("./questions");
 const bcrypt = require("bcryptjs");
+const { store } = require("./questions");
+const Student = require("../models/Student");
 const { generateToken } = require("../utils");
+const { update } = require("../models/Student");
 
 module.exports = {
   //função que vai ser executada pela rota
