@@ -21,15 +21,17 @@ module.exports = {
         studentName: student.name,
       });
 
-      res.status(201).send({
-        student: {
-          studentId: student.id,
-          name: student.name,
-          ra: student.ra,
-          email: student.email,
-        },
-        token,
-      });
+      setTimeout(() => {
+        res.status(201).send({
+          student: {
+            studentId: student.id,
+            name: student.name,
+            ra: student.ra,
+            email: student.email,
+          },
+          token,
+        });
+      }, 1000);
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
