@@ -1,6 +1,6 @@
 const Multer = require("multer");
 
-const uploadQuestions = Multer({
+const uploadSingleImage = Multer({
   storage: Multer.memoryStorage(),
   /*
         {
@@ -27,4 +27,4 @@ const uploadQuestions = Multer({
   },
 });
 
-module.exports = uploadQuestions.single("image");
+module.exports = uploadSingleImage.single("image");

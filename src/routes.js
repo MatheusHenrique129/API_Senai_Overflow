@@ -2,13 +2,14 @@ const express = require("express");
 const { celebrate, Segments, Joi } = require("celebrate");
 
 const authMidlleware = require("./middleware/authorization");
-const uploadQuestions = require("./middleware/uploadQuestions");
+const uploadSingleImage = require("./middleware/uploadSingleImage");
 const uploadImage = require("./services/firebase");
 
 const feedController = require("./controllers/feed");
 const answersController = require("./controllers/answers");
 const sessionController = require("./controllers/sessions");
 const studentController = require("./controllers/students");
+const studentImagesController = require("./controllers/studentImages");
 const questionController = require("./controllers/questions");
 const categoriesController = require("./controllers/categories");
 
@@ -49,11 +50,17 @@ routes.get("/students", studentController.index);
 routes.get("/students/:id", studentController.find);
 routes.delete("/students/:id", studentController.delete);
 routes.put("/students/:id", studentController.update);
+routes.post(
+  "/students/:id/images",
+  uploadSingleImage,
+  uploadImage,
+  studentImagesController.store
+);
 
 //rotas de perguntas
 routes.post(
   "/questions",
-  uploadQuestions,
+  uploadSingleImage,
   uploadImage,
   questionsValidators.create,
   questionController.store
@@ -65,7 +72,7 @@ routes.put("/questions/:id", questionController.update);
 routes.post(
   "/questions/:id/answers",
   answersValidators.create,
-  uploadQuestions,
+  uploadSingleImage,
   answersController.store
 );
 
