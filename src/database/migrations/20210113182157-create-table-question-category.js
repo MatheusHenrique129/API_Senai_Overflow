@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -8,20 +8,16 @@ module.exports = {
         allowNull: false,
         references: {
           model: "questions",
-          key: "id",
+          key: "id"
         },
-        onUptade: "CASCADE",
-        onDelete: "CASCADE",
       },
       category_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "categories",
-          key: "id",
+          key: "id"
         },
-        onUptade: "CASCADE",
-        onDelete: "CASCADE",
       },
       created_at: {
         type: Sequelize.DATE,
@@ -30,11 +26,11 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
-      },
-    });
+      }
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
     queryInterface.dropTable("question_category");
-  },
+  }
 };

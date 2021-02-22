@@ -1,5 +1,7 @@
 const Student = require("../models/Student");
 const bcrypt = require("bcryptjs");
+const auth = require("../config/auth.json");
+const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils");
 
 module.exports = {
@@ -32,7 +34,7 @@ module.exports = {
           },
           token,
         });
-      }, 1000);
+      }, 3000);
     } catch (error) {
       console.log(error);
       res.status(500).send(error);

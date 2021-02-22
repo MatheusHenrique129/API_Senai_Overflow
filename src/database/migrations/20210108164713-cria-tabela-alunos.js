@@ -2,31 +2,30 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.createTable("answers", {
+    //aqui dizemos o que deve ser feito
+
+    queryInterface.createTable("students", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        autoIncrement: true
       },
-      description: {
-        type: Sequelize.TEXT,
-        allowNull: false
-      },
-      question_id: {
-        type: Sequelize.INTEGER,
+      ra: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-          model: "questions",
-          key: "id"
-        },
+        unique: true
       },
-      student_id: {
-        type: Sequelize.INTEGER,
+      name: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-          model: "students",
-          key: "id"
-        },
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -40,6 +39,8 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable("answers");
+    //aqui dizemos o que deve ser desfeito
+
+    queryInterface.dropTable("students");
   }
 };

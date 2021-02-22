@@ -15,6 +15,7 @@ Question.init(connection);
 Category.init(connection);
 Answer.init(connection);
 
+
 //inicializa os relacionamentos
 Student.associate(connection.models);
 Question.associate(connection.models);

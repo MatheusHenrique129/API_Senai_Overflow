@@ -1,4 +1,5 @@
 const Student = require("../models/Student");
+const { store } = require("./sessions");
 
 module.exports = {
   async store(req, res) {
@@ -7,7 +8,7 @@ module.exports = {
     const { studentId } = req;
 
     if (!firebaseUrl)
-      return res.status(400).send({ error: "Campo Imagem é obrigatório" });
+      return res.status(400).send({ error: "Campo imagem é obrigatório" });
 
     try {
       const student = await Student.findByPk(studentId);

@@ -1,4 +1,4 @@
-const { celebrate, Segments, Joi } = require("celebrate");
+const { Segments, Joi, celebrate } = require("celebrate");
 
 module.exports = {
   create: celebrate({
@@ -6,7 +6,7 @@ module.exports = {
       description: Joi.string().min(10).max(255).required(),
     }),
     [Segments.PARAMS]: Joi.object().keys({
-      id: Joi.number().required(),
-    }),
+      id: Joi.number().required()
+    })
   }),
-};
+}

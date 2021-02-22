@@ -1,17 +1,71 @@
+const { Op } = require("sequelize");
 const Question = require("../models/Question");
 const Student = require("../models/Student");
 
 module.exports = {
-  index(req, res) {},
+  async index(req, res) {
+    const { search } = req.query;
+
+    try {
+      const questions = await Question.findAll({
+        attributes: [
+          "id",
+          "title",
+          "description",
+          "image",
+          "gist",
+          "created_at",
+          "StudentId",
+        ],
+        include: [
+          {
+            association: "Student",
+            attributes: ["id", "name", "image"],
+          },
+          {
+            association: "Categories",
+            attributes: ["id", "description"],
+            through: { attributes: [] },
+          },
+          {
+            association: "Answers",
+            attributes: ["id", "description", "created_at"],
+            include: {
+              association: "Student",
+              attributes: ["id", "name", "image"],
+            },
+          },
+        ],
+        order: [["created_at", "DESC"]],
+        where: {
+          [Op.or]: [
+            {
+              title: {
+                [Op.substring]: search,
+              },
+            },
+            {
+              description: {
+                [Op.substring]: search,
+              },
+            },
+          ],
+        },
+      });
+
+      res.send(questions);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  },
 
   async store(req, res) {
     const { title, description, gist, categories } = req.body;
 
-    const categoriesArray = categories.split(",");
+    const categoriesArr = categories.split(",");
 
     const { studentId } = req;
-
-    //const { firebaseUrl } = req.file ? req.file : "";
 
     try {
       //buscar o aluno pelo ID
@@ -29,10 +83,17 @@ module.exports = {
         gist,
       });
 
-      await question.addCategories(categoriesArray);
+      await question.addCategories(categoriesArr);
 
       //retorno sucesso
-      res.status(201).send(question);
+      res.status(201).send({
+        id: question.id,
+        title: question.title,
+        description: question.description,
+        created_at: question.created_at,
+        gist: question.gist,
+        image: req.file ? req.file.firebaseUrl : null,
+      });
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
@@ -54,7 +115,7 @@ module.exports = {
       if (!question)
         return res.status(404).send({ error: "Questão não encontrada" });
 
-      if (question.StudentId != studentId)
+      if (question.student_id != studentId)
         return res.status(401).send({ error: "Não autorizado" });
 
       question.title = title;

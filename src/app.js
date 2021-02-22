@@ -21,6 +21,6 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(routes);
 
-app.use(errors()); //Importante que fique em baixo de routes
+app.use(errors());
 
 module.exports = app;

@@ -1,6 +1,11 @@
-const { celebrate, Segments, Joi } = require("celebrate");
+const { Segments, Joi, celebrate } = require("celebrate");
 
 module.exports = {
+  index: celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+      search: Joi.string().min(3).required(),
+    }),
+  }),
   create: celebrate({
     [Segments.BODY]: Joi.object().keys({
       title: Joi.string().min(5).max(255).required(),

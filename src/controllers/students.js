@@ -1,8 +1,8 @@
-const bcrypt = require("bcryptjs");
-const { store } = require("./questions");
 const Student = require("../models/Student");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const auth = require("../config/auth.json");
 const { generateToken } = require("../utils");
-const { update } = require("../models/Student");
 
 module.exports = {
   //função que vai ser executada pela rota
@@ -28,7 +28,7 @@ module.exports = {
 
       //se aluno não encontrado, retornar not found
       if (!student)
-        return res.status(404).send({ error: "Aluno não encontrado" });
+        return res.status(404).send({ erro: "Aluno não encontrado" });
 
       res.send(student);
     } catch (error) {
@@ -112,7 +112,7 @@ module.exports = {
     try {
       let student = await Student.findByPk(studentId);
 
-      if (!Student) res.status(404).send({ error: "Aluno não encontrado" });
+      if (!student) res.status(404).send({ error: "Aluno não encontrado" });
 
       student.name = name;
       student.email = email;
