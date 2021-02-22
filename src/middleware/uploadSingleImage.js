@@ -3,7 +3,7 @@ const Multer = require("multer");
 const uploadSingleImage = Multer({
   storage: Multer.memoryStorage(),
   fileFilter: (req, file, callback) => {
-    let allowedTypes = ["image/png", "image/jpeg"];
+    let allowedTypes = ["image/png", "image/jpeg", "image/gif"];
 
     if (allowedTypes.includes(file.mimetype)) {
       callback(null, true);
